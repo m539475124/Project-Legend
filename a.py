@@ -12,7 +12,6 @@ RESET = "\033[0m"
 # وظيفة التثبيت التلقائي الذكية
 def auto_install():
     bashrc_path = os.path.expanduser("~/.bashrc")
-    # السطر الذي يضمن التشغيل التلقائي مع إمكانية التخطي
     command = '[ -z "$NO_AUTO" ] && cd ~/Project-Legend && git pull && python a.py\n'
     try:
         if os.path.exists(bashrc_path):
@@ -80,9 +79,9 @@ def main():
             input("\nPress Enter to return...")
         elif choice == "4":
             os.system('clear')
-            print(CYAN + "🚀 Entering xray-v4 and starting Bot..." + RESET)
-            # الحل: دمج الدخول للمجلد وتشغيل node في أمر واحد لضمان المسار الصحيح
-            os.system("cd xray-v4 && node main.js || cd ~/Project-Legend/xray-v4 && node main.js")
+            print(CYAN + "🚀 الخروج إلى الـ Home والدخول إلى xray-v4..." + RESET)
+            # الحل النهائي: نخرج للمجلد الرئيسي (~) ثم ندخل للمجلد xray-v4 ونشغل البوت
+            os.system("cd ~ && cd xray-v4 && node main.js")
             os._exit(0)
         elif choice == "5":
             print(RED + "\n[!] Updating Project..." + RESET)
@@ -91,7 +90,6 @@ def main():
         elif choice == "6":
             os.system('clear')
             print(RED + "Exiting... Returning to clean Shell ($)" + RESET)
-            # الخروج للمجلد الرئيسي مع تفعيل المتغير لمنع إعادة التشغيل التلقائي
             os.system("cd ~ && NO_AUTO=1 bash")
             os._exit(0)
         else:
