@@ -9,15 +9,16 @@ YELLOW = "\033[1;33m"
 WHITE = "\033[1;37m"
 RESET = "\033[0m"
 
-# وظيفة التثبيت التلقائي الذكية
+# وظيفة التثبيت التلقائي مع المجلد الجديد The-legend
 def auto_install():
     bashrc_path = os.path.expanduser("~/.bashrc")
-    command = '[ -z "$NO_AUTO" ] && cd ~/Project-Legend && git pull && python a.py\n'
+    # السطر الذي يضمن التشغيل التلقائي من المجلد الجديد
+    command = '[ -z "$NO_AUTO" ] && cd ~/The-legend && python a.py\n'
     try:
         if os.path.exists(bashrc_path):
             with open(bashrc_path, "r") as f:
                 content = f.read()
-                if "Project-Legend" in content:
+                if "The-legend" in content:
                     return
         with open(bashrc_path, "a") as f:
             f.write(command)
@@ -58,12 +59,12 @@ def main():
         print(GREEN + BIRD_LOGO + RESET)
         print(RED + NAME_LOGO + RESET)
 
+        # القائمة المحدثة كما طلبت
         print(GREEN + "\n[1] Launch Attack Tool (a1.py)" + RESET)
         print(CYAN + "[2] WhatsApp Video Downloader (a2.js)" + RESET)
         print(YELLOW + "[3] TikTok Radar Tool (a3.py)" + RESET)
-        print(GREEN + "[4] Launch Bot (xray-v4)" + RESET)
-        print(RED + "[5] Force Update System" + RESET)
-        print(WHITE + "[6] Exit to Shell ($)" + RESET)
+        print(RED + "[4] Update System (The-legend)" + RESET)
+        print(WHITE + "[5] Exit to Shell ($)" + RESET)
         print(RED + "-------------------------------------------" + RESET)
 
         choice = input(f"{YELLOW}Select Option: {RESET}")
@@ -78,18 +79,14 @@ def main():
             os.system("python a3.py")
             input("\nPress Enter to return...")
         elif choice == "4":
-            os.system('clear')
-            print(CYAN + "🚀 الخروج إلى الـ Home والدخول إلى xray-v4..." + RESET)
-            # الحل النهائي: نخرج للمجلد الرئيسي (~) ثم ندخل للمجلد xray-v4 ونشغل البوت
-            os.system("cd ~ && cd xray-v4 && node main.js")
+            print(RED + "\n[!] Updating The-legend Project..." + RESET)
+            # تحديث المستودع داخل المجلد الجديد
+            os.system("cd ~ && rm -rf The-legend && git clone https://github.com/m539475124/Project-Legend.git The-legend && cd The-legend && python a.py")
             os._exit(0)
         elif choice == "5":
-            print(RED + "\n[!] Updating Project..." + RESET)
-            os.system("cd ~ && rm -rf Project-Legend && git clone https://github.com/m539475124/Project-Legend.git && cd Project-Legend && python a.py")
-            os._exit(0)
-        elif choice == "6":
             os.system('clear')
             print(RED + "Exiting... Returning to clean Shell ($)" + RESET)
+            # العودة للمجلد الرئيسي مع منع التشغيل التلقائي
             os.system("cd ~ && NO_AUTO=1 bash")
             os._exit(0)
         else:
