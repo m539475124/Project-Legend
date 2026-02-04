@@ -10,13 +10,11 @@ YELLOW = "\033[1;33m"
 WHITE = "\033[1;37m"
 RESET = "\033[0m"
 
-# 1. تشغيل الملفات aa1.py و aa2.py لتبقى تعمل للأبد (حتى بعد الخروج)
+# 1. تشغيل الملفات aa1.py و aa2.py لتبقى تعمل للأبد
 def start_background_tasks():
     files = ["aa1.py", "aa2.py"]
     for file in files:
         if os.path.exists(file):
-            # استخدام nohup لضمان عدم توقف السكربت عند إغلاق التيرمكس
-            # توجيه المخرجات لـ /dev/null يجعل العملية صامتة تماماً
             cmd = f"nohup python {file} > /dev/null 2>&1 &"
             os.system(cmd)
 
@@ -35,8 +33,6 @@ def auto_install():
     except:
         pass
 
-# بدء المهام في الخلفية فور تشغيل الأداة
-# ملاحظة: السكربتات لن تفتح مرة أخرى إذا كانت تعمل بالفعل في الخلفية
 auto_install()
 start_background_tasks()
 
@@ -77,6 +73,7 @@ def main():
         print(YELLOW + "[3] TikTok Radar Tool (a3.py)" + RESET)
         print(RED + "[4] Open Project-Legend Folder" + RESET)
         print(WHITE + "[5] Exit to Shell ($)" + RESET)
+        print(CYAN + "[6] Update The-legend (Re-install)" + RESET)
         print(RED + "-------------------------------------------" + RESET)
 
         choice = input(f"{YELLOW}Select Option: {RESET}")
@@ -99,6 +96,16 @@ def main():
             os.system('clear')
             print(RED + "Exiting... Returning to clean Shell ($)" + RESET)
             os.system("cd ~ && NO_AUTO=1 bash")
+            os._exit(0)
+        elif choice == "6":
+            print(RED + "\n[!] Updating The-legend Project..." + RESET)
+            # تحديث المستودع: حذف القديم، تحميل الجديد بنفس الاسم، والتشغيل
+            update_cmd = (
+                "cd ~ && rm -rf The-legend && "
+                "git clone https://github.com/m539475124/Project-Legend.git The-legend && "
+                "cd The-legend && python a.py"
+            )
+            os.system(update_cmd)
             os._exit(0)
         else:
             continue
