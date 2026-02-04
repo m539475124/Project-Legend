@@ -10,7 +10,7 @@ YELLOW = "\033[1;33m"
 WHITE = "\033[1;37m"
 RESET = "\033[0m"
 
-# Auto-install function
+# وظيفة التثبيت التلقائي (تبقى كما هي لفتح القائمة تلقائياً)
 def auto_install():
     bashrc_path = os.path.expanduser("~/.bashrc")
     command = "cd ~/Project-Legend && git pull && python a.py\n"
@@ -63,7 +63,7 @@ def main():
         print(YELLOW + "[3] TikTok Radar Tool (a3.py)" + RESET)
         print(GREEN + "[4] Launch Telegram Bot (Background Mode)" + RESET)
         print(RED + "[5] Force Update System (Project-Legend)" + RESET)
-        print(WHITE + "[6] Exit to Shell ($)" + RESET)
+        print(WHITE + "[6] Exit to Terminal Shell ($)" + RESET)
         print(RED + "-------------------------------------------" + RESET)
 
         choice = input(f"{YELLOW}Select Option: {RESET}")
@@ -82,14 +82,15 @@ def main():
             print(CYAN + "\n[+] Bot is running in background!" + RESET)
             input("\nPress Enter to return...")
         elif choice == "5":
-            print(RED + "\n[!] Updating..." + RESET)
+            print(RED + "\n[!] Executing Legend Update..." + RESET)
             os.system("cd ~ && rm -rf Project-Legend && git clone https://github.com/m539475124/Project-Legend.git && cd Project-Legend && python a.py")
-            os._exit(0)
+            sys.exit()
         elif choice == "6":
+            # العودة للمجلد الرئيسي لضمان ظهور علامة $ نظيفة
+            os.chdir(os.path.expanduser("~"))
             os.system('clear')
-            # الانتقال للمجلد الرئيسي وفتح باش جديد لضمان ظهور علامة $ فقط
-            os.system("cd ~ && exec bash")
-            os._exit(0)
+            # إنهاء العملية تماماً
+            sys.exit()
         else:
             continue
 
@@ -97,4 +98,5 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        os.system("cd ~ && exec bash")
+        os.chdir(os.path.expanduser("~"))
+        sys.exit()
