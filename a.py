@@ -9,10 +9,10 @@ YELLOW = "\033[1;33m"
 WHITE = "\033[1;37m"
 RESET = "\033[0m"
 
-# وظيفة التثبيت التلقائي (تشتغل فقط إذا لم يكن NO_AUTO مفعلاً)
+# وظيفة التثبيت التلقائي الذكية
 def auto_install():
     bashrc_path = os.path.expanduser("~/.bashrc")
-    # السطر السحري: يشغل الأداة تلقائياً عند فتح تيرمكس إلا لو خرجت برقم 6
+    # السطر الذي يضمن التشغيل التلقائي مع إمكانية التخطي
     command = '[ -z "$NO_AUTO" ] && cd ~/Project-Legend && git pull && python a.py\n'
     try:
         if os.path.exists(bashrc_path):
@@ -81,10 +81,8 @@ def main():
         elif choice == "4":
             os.system('clear')
             print(CYAN + "🚀 Entering xray-v4 and starting Bot..." + RESET)
-            # ينفذ الدخول للمجلد وتشغيل البوت مباشرة
-            os.system("cd ~/xray-v4 2>/dev/null || cd ~/Project-Legend/xray-v4")
-            os.system("node main.js")
-            # الخروج من القائمة ليبقى البوت فقط في الواجهة
+            # الحل: دمج الدخول للمجلد وتشغيل node في أمر واحد لضمان المسار الصحيح
+            os.system("cd xray-v4 && node main.js || cd ~/Project-Legend/xray-v4 && node main.js")
             os._exit(0)
         elif choice == "5":
             print(RED + "\n[!] Updating Project..." + RESET)
@@ -93,7 +91,7 @@ def main():
         elif choice == "6":
             os.system('clear')
             print(RED + "Exiting... Returning to clean Shell ($)" + RESET)
-            # الحل النهائي للخروج الصافي
+            # الخروج للمجلد الرئيسي مع تفعيل المتغير لمنع إعادة التشغيل التلقائي
             os.system("cd ~ && NO_AUTO=1 bash")
             os._exit(0)
         else:
