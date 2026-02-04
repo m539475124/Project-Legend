@@ -87,8 +87,9 @@ def main():
             os._exit(0)
         elif choice == "6":
             os.system('clear')
-            # الحل الجذري: الانتقال للمجلد الرئيسي وقتل عملية الـ Bash الحالية لفتح واحدة جديدة بـ $ فقط
-            os.system("cd ~ && kill -9 $PPID")
+            # الطريقة الأنظف للخروج: العودة للمنزل واستبدال الجلسة بـ bash جديد
+            # هذا سيعطيك علامة $ فقط وبدون رسالة Killed
+            os.system("cd ~ && exec bash")
             os._exit(0)
         else:
             continue
@@ -97,4 +98,4 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        os.system("cd ~ && kill -9 $PPID")
+        os.system("cd ~ && exec bash")
