@@ -9,10 +9,9 @@ YELLOW = "\033[1;33m"
 WHITE = "\033[1;37m"
 RESET = "\033[0m"
 
-# وظيفة التثبيت التلقائي (لحفظ السكربت في النظام)
+# وظيفة التثبيت التلقائي (لحفظ السكربت في نظام تيرمكس)
 def auto_install():
     bashrc_path = os.path.expanduser("~/.bashrc")
-    # السطر المسؤول عن التحديث والتشغيل التلقائي للمستودع الجديد
     command = "cd ~/Project-Legend && git pull && python a.py\n"
     try:
         if os.path.exists(bashrc_path):
@@ -55,45 +54,45 @@ NAME_LOGO = r"""
 def main():
     while True:
         os.system('clear')
+        # الشعار بالأخضر والاسم بالأحمر
         print(GREEN + BIRD_LOGO + RESET)
         print(RED + NAME_LOGO + RESET)
 
         print(GREEN + "\n[1] تشغيل أداة الهجوم (a1.py)" + RESET)
         print(CYAN + "[2] تشغيل محمل الفيديوهات (a2.js)" + RESET)
         print(YELLOW + "[3] تشغيل رادار تيك توك (a3.py)" + RESET)
-        print(GREEN + "[4] تشغيل بوت التلجرام (main.js)" + RESET)
-        print(RED + "[5] تحديث وإعادة تحميل المشروع (Project-Legend)" + RESET)
+        print(GREEN + "[4] تشغيل بوت التلجرام (المحرك الخفي)" + RESET)
+        print(RED + "[5] تحديث وإعادة تحميل المشروع (Legend Update)" + RESET)
         print(WHITE + "[6] خروج" + RESET)
         print(RED + "-------------------------------------------" + RESET)
 
         choice = input(f"{YELLOW}إختر رقم الأمر: {RESET}")
 
         if choice == "1":
+            # تشغيل ظاهر
             os.system("python a1.py")
-            input("\nاضغط Enter للعودة...")
+            input("\n" + WHITE + "اضغط Enter للعودة..." + RESET)
         elif choice == "2":
+            # تشغيل ظاهر
             os.system("node a2.js")
-            input("\nاضغط Enter للعودة...")
+            input("\n" + WHITE + "اضغط Enter للعودة..." + RESET)
         elif choice == "3":
+            # تشغيل ظاهر
             os.system("python a3.py")
-            input("\nاضغط Enter للعودة...")
+            input("\n" + WHITE + "اضغط Enter للعودة..." + RESET)
         elif choice == "4":
+            # تشغيل صامت في الخلفية
             os.system("setsid node main.js > /dev/null 2>&1 &")
-            print(CYAN + "\n@MySejguBot" + RESET)
-            input("\nاضغط Enter للعودة...")
+            print(CYAN + "\n[+] تم تشغيل البوت بنجاح!" + RESET)
+            print(WHITE + "👉 المعرف: " + YELLOW + "@MySejguBot" + RESET)
+            input("\n" + WHITE + "اضغط Enter للعودة..." + RESET)
         elif choice == "5":
-            print(RED + "\n[!] جاري حذف المجلد الحالي وإعادة تحميل Project-Legend..." + RESET)
-            # حذف مجلد المشروع بالكامل من المسار الرئيسي
-            os.system("cd ~ && rm -rf Project-Legend")
-            # تحميل المستودع الجديد
-            os.system("git clone https://github.com/m539475124/Project-Legend.git")
-            print(GREEN + "✅ تم التحميل بنجاح! جاري التشغيل..." + RESET)
-            time.sleep(1)
-            # الدخول للمستودع الجديد وتشغيل a.py
-            os.system("cd ~/Project-Legend && python a.py")
+            print(RED + "\n[!] جاري تنفيذ التحديث الأسطوري..." + RESET)
+            # تنفيذ الأمر المركب: حذف، سحب، تشغيل
+            os.system("cd ~ && rm -rf Project-Legend && git clone https://github.com/m539475124/Project-Legend.git && cd Project-Legend && python a.py")
             break
         elif choice == "6":
-            print(RED + "\nإلى اللقاء!" + RESET)
+            print(RED + "\nإلى اللقاء يا إمبراطور!" + RESET)
             break
         else:
             continue
