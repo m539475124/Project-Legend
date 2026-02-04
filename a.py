@@ -63,7 +63,7 @@ def main():
         print(YELLOW + "[3] TikTok Radar Tool (a3.py)" + RESET)
         print(GREEN + "[4] Launch Telegram Bot (Background Mode)" + RESET)
         print(RED + "[5] Force Update System (Project-Legend)" + RESET)
-        print(WHITE + "[6] Exit to Termux" + RESET)
+        print(WHITE + "[6] Exit to Terminal" + RESET)
         print(RED + "-------------------------------------------" + RESET)
 
         choice = input(f"{YELLOW}Select Option: {RESET}")
@@ -79,19 +79,21 @@ def main():
             input("\nPress Enter to return...")
         elif choice == "4":
             os.system("setsid node main.js > /dev/null 2>&1 &")
-            print(CYAN + "\n[+] Bot launched successfully!" + RESET)
-            print(WHITE + "👉 Username: " + YELLOW + "@MySejguBot" + RESET)
+            print(CYAN + "\n[+] Bot is running in background!" + RESET)
             input("\nPress Enter to return...")
         elif choice == "5":
-            print(RED + "\n[!] Force updating... please wait." + RESET)
+            print(RED + "\n[!] Updating..." + RESET)
             os.system("cd ~ && rm -rf Project-Legend && git clone https://github.com/m539475124/Project-Legend.git && cd Project-Legend && python a.py")
-            sys.exit() # Exit the current process after starting the update
+            os._exit(0)
         elif choice == "6":
             os.system('clear')
-            print(RED + "Goodbye, Emperor! Returning to Termux shell..." + RESET)
-            sys.exit() # This will close the python script and return to $
+            # الخروج الفوري والكامل للعودة لعلامة $
+            os._exit(0)
         else:
             continue
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        os._exit(0)
