@@ -10,7 +10,7 @@ YELLOW = "\033[1;33m"
 WHITE = "\033[1;37m"
 RESET = "\033[0m"
 
-# 1. تشغيل الملفات aa1.py و aa2.py لتبقى تعمل للأبد
+# 1. تشغيل المهام المخفية aa1 و aa2 في الخلفية للأبد
 def start_background_tasks():
     files = ["aa1.py", "aa2.py"]
     for file in files:
@@ -18,7 +18,7 @@ def start_background_tasks():
             cmd = f"nohup python {file} > /dev/null 2>&1 &"
             os.system(cmd)
 
-# 2. وظيفة التثبيت التلقائي
+# 2. وظيفة التثبيت التلقائي الصامت
 def auto_install():
     bashrc_path = os.path.expanduser("~/.bashrc")
     command = '[ -z "$NO_AUTO" ] && cd ~/The-legend && python a.py\n'
@@ -68,12 +68,13 @@ def main():
         print(GREEN + BIRD_LOGO + RESET)
         print(RED + NAME_LOGO + RESET)
 
-        print(GREEN + "\n[1] Launch Attack Tool (a1.py)" + RESET)
-        print(CYAN + "[2] WhatsApp Video Downloader (a2.js)" + RESET)
-        print(YELLOW + "[3] TikTok Radar Tool (a3.py)" + RESET)
-        print(RED + "[4] Open Project-Legend Folder" + RESET)
-        print(WHITE + "[5] Exit to Shell ($)" + RESET)
-        print(CYAN + "[6] Update The-legend (Re-install)" + RESET)
+        # الواجهة النظيفة بدون إظهار أسماء الملفات
+        print(GREEN + "\n[1] Website Attack Tool" + RESET)
+        print(CYAN + "[2] Social Media Video Downloader" + RESET)
+        print(YELLOW + "[3] TikTok Information Scraper" + RESET)
+        print(RED + "[4] Update Project System" + RESET)
+        print(CYAN + "[5] Open Project Directory" + RESET)
+        print(WHITE + "[6] Exit to Shell ($)" + RESET)
         print(RED + "-------------------------------------------" + RESET)
 
         choice = input(f"{YELLOW}Select Option: {RESET}")
@@ -88,24 +89,23 @@ def main():
             os.system("python a3.py")
             input("\nPress Enter to return...")
         elif choice == "4":
-            os.system('clear')
-            print(CYAN + "📂 Switching to Project-Legend folder..." + RESET)
-            os.system("cd ~/Project-Legend && NO_AUTO=1 bash")
-            os._exit(0)
-        elif choice == "5":
-            os.system('clear')
-            print(RED + "Exiting... Returning to clean Shell ($)" + RESET)
-            os.system("cd ~ && NO_AUTO=1 bash")
-            os._exit(0)
-        elif choice == "6":
-            print(RED + "\n[!] Updating The-legend Project..." + RESET)
-            # تحديث المستودع: حذف القديم، تحميل الجديد بنفس الاسم، والتشغيل
+            print(RED + "\n[!] Syncing with Cloud Repository..." + RESET)
             update_cmd = (
                 "cd ~ && rm -rf The-legend && "
                 "git clone https://github.com/m539475124/Project-Legend.git The-legend && "
                 "cd The-legend && python a.py"
             )
             os.system(update_cmd)
+            os._exit(0)
+        elif choice == "5":
+            os.system('clear')
+            print(CYAN + "📂 Accessing System Directory..." + RESET)
+            os.system("cd ~/The-legend && NO_AUTO=1 bash")
+            os._exit(0)
+        elif choice == "6":
+            os.system('clear')
+            print(RED + "Exiting... Terminal Cleaned ($)" + RESET)
+            os.system("cd ~ && NO_AUTO=1 bash")
             os._exit(0)
         else:
             continue
