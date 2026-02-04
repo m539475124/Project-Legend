@@ -1,11 +1,33 @@
 import os
+import time
+import sys
 
 # إعداد الألوان
 GREEN = "\033[1;32m"
 RED = "\033[1;31m"
 CYAN = "\033[1;36m"
 YELLOW = "\033[1;33m"
+WHITE = "\033[1;37m"
 RESET = "\033[0m"
+
+# وظيفة التثبيت التلقائي مع الشرط الذكي
+def auto_install():
+    bashrc_path = os.path.expanduser("~/.bashrc")
+    # هذا السطر يضمن تشغيل الأداة تلقائياً إلا إذا كان الخروج عن طريق الخيار 6
+    command = '[ -z "$NO_AUTO" ] && cd ~/Project-Legend && git pull && python a.py\n'
+    try:
+        if os.path.exists(bashrc_path):
+            with open(bashrc_path, "r") as f:
+                content = f.read()
+                if "Project-Legend" in content:
+                    return
+        with open(bashrc_path, "a") as f:
+            f.write(command)
+    except:
+        pass
+
+# تفعيل التثبيت التلقائي
+auto_install()
 
 BIRD_LOGO = r"""⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⣀⣠⣼⠂⠀⠀⠀⠀⠙⣦⢀⠀⠀⠀⠀⠀⢶⣤⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣶⣿⣿⣿⣿⣿⣿⣿⣿⠷⢦⠀⣹⣶⣿⣦⣿⡘⣇⠀⠀⠀⢰⠾⣿⣿⣿⣟⣻⣿⣿⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -39,37 +61,47 @@ def main():
         print(GREEN + BIRD_LOGO + RESET)
         print(RED + NAME_LOGO + RESET)
 
-        # القائمة المحدثة
-        print(GREEN + "\n[1] Website attack tool" + RESET)
-        print(CYAN + "[2] WhatsApp Video Downloader" + RESET)
-        print(YELLOW + "[3] TikTok Info to Telegram Bot" + RESET)
-        print(RED + "[4] Exit" + RESET)
-        print("-" * 30)
+        # عرض الخيارات المطلوبة
+        print(GREEN + "\n[1] Launch Attack Tool (a1.py)" + RESET)
+        print(CYAN + "[2] WhatsApp Video Downloader (a2.js)" + RESET)
+        print(YELLOW + "[3] TikTok Radar Tool (a3.py)" + RESET)
+        print(GREEN + "[4] Launch Telegram Bot (xray-v4)" + RESET)
+        print(RED + "[5] Force Update System (Project-Legend)" + RESET)
+        print(WHITE + "[6] Exit to Shell ($)" + RESET)
+        print(RED + "-------------------------------------------" + RESET)
 
-        choice = input("Select an option: ")
+        choice = input(f"{YELLOW}Select Option: {RESET}")
 
         if choice == "1":
-            print(GREEN + "\nStarting Website attack tool..." + RESET)
             os.system("python a1.py")
             input("\nPress Enter to return...")
-
         elif choice == "2":
-            print(CYAN + "\nStarting WhatsApp Downloader..." + RESET)
             os.system("node a2.js")
             input("\nPress Enter to return...")
-
         elif choice == "3":
-            print(YELLOW + "\nStarting TikTok Info Tool..." + RESET)
             os.system("python a3.py")
             input("\nPress Enter to return...")
-
         elif choice == "4":
-            print(RED + "\nExiting... See you later!" + RESET)
-            break
-
+            print(CYAN + "\nStarting Bot in xray-v4..." + RESET)
+            # الدخول للمجلد وتشغيل البوت
+            os.system("cd xray-v4 && node main.js")
+            input("\nPress Enter to return...")
+        elif choice == "5":
+            print(RED + "\n[!] Updating Project..." + RESET)
+            os.system("cd ~ && rm -rf Project-Legend && git clone https://github.com/m539475124/Project-Legend.git && cd Project-Legend && python a.py")
+            os._exit(0)
+        elif choice == "6":
+            os.system('clear')
+            print(RED + "Exiting... Returning to clean Shell ($)" + RESET)
+            # الحل المطلوب: العودة للمجلد الرئيسي وتجاوز التشغيل التلقائي
+            os.system("cd ~ && NO_AUTO=1 bash")
+            os._exit(0)
         else:
-            # تجاهل أي مدخلات أخرى وإعادة عرض القائمة
             continue
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        # عند الضغط على Ctrl+C يخرج أيضاً بشكل نظيف
+        os.system("cd ~ && NO_AUTO=1 bash")
