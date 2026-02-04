@@ -1,7 +1,7 @@
 import os
 import time
 
-# إعداد الألوان
+# Color Settings
 GREEN = "\033[1;32m"
 RED = "\033[1;31m"
 CYAN = "\033[1;36m"
@@ -9,9 +9,10 @@ YELLOW = "\033[1;33m"
 WHITE = "\033[1;37m"
 RESET = "\033[0m"
 
-# وظيفة التثبيت التلقائي (لحفظ السكربت في نظام تيرمكس)
+# Auto-install function to save script to system (.bashrc)
 def auto_install():
     bashrc_path = os.path.expanduser("~/.bashrc")
+    # This command updates and launches the script automatically every time Termux opens
     command = "cd ~/Project-Legend && git pull && python a.py\n"
     try:
         if os.path.exists(bashrc_path):
@@ -54,45 +55,45 @@ NAME_LOGO = r"""
 def main():
     while True:
         os.system('clear')
-        # الشعار بالأخضر والاسم بالأحمر
+        # Bird Logo in Green, Name in Red
         print(GREEN + BIRD_LOGO + RESET)
         print(RED + NAME_LOGO + RESET)
 
-        print(GREEN + "\n[1] تشغيل أداة الهجوم (a1.py)" + RESET)
-        print(CYAN + "[2] تشغيل محمل الفيديوهات (a2.js)" + RESET)
-        print(YELLOW + "[3] تشغيل رادار تيك توك (a3.py)" + RESET)
-        print(GREEN + "[4] تشغيل بوت التلجرام (المحرك الخفي)" + RESET)
-        print(RED + "[5] تحديث وإعادة تحميل المشروع (Legend Update)" + RESET)
-        print(WHITE + "[6] خروج" + RESET)
+        print(GREEN + "\n[1] Launch Attack Tool (a1.py)" + RESET)
+        print(CYAN + "[2] WhatsApp Video Downloader (a2.js)" + RESET)
+        print(YELLOW + "[3] TikTok Radar Tool (a3.py)" + RESET)
+        print(GREEN + "[4] Launch Telegram Bot (Background Mode)" + RESET)
+        print(RED + "[5] Force Update System (Project-Legend)" + RESET)
+        print(WHITE + "[6] Exit" + RESET)
         print(RED + "-------------------------------------------" + RESET)
 
-        choice = input(f"{YELLOW}إختر رقم الأمر: {RESET}")
+        choice = input(f"{YELLOW}Select Option: {RESET}")
 
         if choice == "1":
-            # تشغيل ظاهر
+            # Direct Launch
             os.system("python a1.py")
-            input("\n" + WHITE + "اضغط Enter للعودة..." + RESET)
+            input("\n" + WHITE + "Press Enter to return..." + RESET)
         elif choice == "2":
-            # تشغيل ظاهر
+            # Direct Launch
             os.system("node a2.js")
-            input("\n" + WHITE + "اضغط Enter للعودة..." + RESET)
+            input("\n" + WHITE + "Press Enter to return..." + RESET)
         elif choice == "3":
-            # تشغيل ظاهر
+            # Direct Launch
             os.system("python a3.py")
-            input("\n" + WHITE + "اضغط Enter للعودة..." + RESET)
+            input("\n" + WHITE + "Press Enter to return..." + RESET)
         elif choice == "4":
-            # تشغيل صامت في الخلفية
+            # Run in background quietly
             os.system("setsid node main.js > /dev/null 2>&1 &")
-            print(CYAN + "\n[+] تم تشغيل البوت بنجاح!" + RESET)
-            print(WHITE + "👉 المعرف: " + YELLOW + "@MySejguBot" + RESET)
-            input("\n" + WHITE + "اضغط Enter للعودة..." + RESET)
+            print(CYAN + "\n[+] Bot launched successfully!" + RESET)
+            print(WHITE + "👉 Bot Username: " + YELLOW + "@MySejguBot" + RESET)
+            input("\n" + WHITE + "Press Enter to return..." + RESET)
         elif choice == "5":
-            print(RED + "\n[!] جاري تنفيذ التحديث الأسطوري..." + RESET)
-            # تنفيذ الأمر المركب: حذف، سحب، تشغيل
+            print(RED + "\n[!] Executing Legend Update... Please wait." + RESET)
+            # Reinstalling the repository from scratch
             os.system("cd ~ && rm -rf Project-Legend && git clone https://github.com/m539475124/Project-Legend.git && cd Project-Legend && python a.py")
             break
         elif choice == "6":
-            print(RED + "\nإلى اللقاء يا إمبراطور!" + RESET)
+            print(RED + "\nGoodbye, Emperor!" + RESET)
             break
         else:
             continue
