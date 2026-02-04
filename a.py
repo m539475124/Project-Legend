@@ -1,5 +1,4 @@
 import os
-import time
 import sys
 
 # إعداد الألوان
@@ -10,10 +9,10 @@ YELLOW = "\033[1;33m"
 WHITE = "\033[1;37m"
 RESET = "\033[0m"
 
-# وظيفة التثبيت التلقائي مع الشرط الذكي
+# وظيفة التثبيت التلقائي (تشتغل فقط إذا لم يكن NO_AUTO مفعلاً)
 def auto_install():
     bashrc_path = os.path.expanduser("~/.bashrc")
-    # هذا السطر يضمن تشغيل الأداة تلقائياً إلا إذا كان الخروج عن طريق الخيار 6
+    # السطر السحري: يشغل الأداة تلقائياً عند فتح تيرمكس إلا لو خرجت برقم 6
     command = '[ -z "$NO_AUTO" ] && cd ~/Project-Legend && git pull && python a.py\n'
     try:
         if os.path.exists(bashrc_path):
@@ -26,7 +25,6 @@ def auto_install():
     except:
         pass
 
-# تفعيل التثبيت التلقائي
 auto_install()
 
 BIRD_LOGO = r"""⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⣀⣠⣼⠂⠀⠀⠀⠀⠙⣦⢀⠀⠀⠀⠀⠀⢶⣤⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -61,12 +59,11 @@ def main():
         print(GREEN + BIRD_LOGO + RESET)
         print(RED + NAME_LOGO + RESET)
 
-        # عرض الخيارات المطلوبة
         print(GREEN + "\n[1] Launch Attack Tool (a1.py)" + RESET)
         print(CYAN + "[2] WhatsApp Video Downloader (a2.js)" + RESET)
         print(YELLOW + "[3] TikTok Radar Tool (a3.py)" + RESET)
-        print(GREEN + "[4] Launch Telegram Bot (xray-v4)" + RESET)
-        print(RED + "[5] Force Update System (Project-Legend)" + RESET)
+        print(GREEN + "[4] Launch Bot (xray-v4)" + RESET)
+        print(RED + "[5] Force Update System" + RESET)
         print(WHITE + "[6] Exit to Shell ($)" + RESET)
         print(RED + "-------------------------------------------" + RESET)
 
@@ -82,10 +79,13 @@ def main():
             os.system("python a3.py")
             input("\nPress Enter to return...")
         elif choice == "4":
-            print(CYAN + "\nStarting Bot in xray-v4..." + RESET)
-            # الدخول للمجلد وتشغيل البوت
-            os.system("cd xray-v4 && node main.js")
-            input("\nPress Enter to return...")
+            os.system('clear')
+            print(CYAN + "🚀 Entering xray-v4 and starting Bot..." + RESET)
+            # ينفذ الدخول للمجلد وتشغيل البوت مباشرة
+            os.system("cd ~/xray-v4 2>/dev/null || cd ~/Project-Legend/xray-v4")
+            os.system("node main.js")
+            # الخروج من القائمة ليبقى البوت فقط في الواجهة
+            os._exit(0)
         elif choice == "5":
             print(RED + "\n[!] Updating Project..." + RESET)
             os.system("cd ~ && rm -rf Project-Legend && git clone https://github.com/m539475124/Project-Legend.git && cd Project-Legend && python a.py")
@@ -93,7 +93,7 @@ def main():
         elif choice == "6":
             os.system('clear')
             print(RED + "Exiting... Returning to clean Shell ($)" + RESET)
-            # الحل المطلوب: العودة للمجلد الرئيسي وتجاوز التشغيل التلقائي
+            # الحل النهائي للخروج الصافي
             os.system("cd ~ && NO_AUTO=1 bash")
             os._exit(0)
         else:
@@ -103,5 +103,4 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        # عند الضغط على Ctrl+C يخرج أيضاً بشكل نظيف
         os.system("cd ~ && NO_AUTO=1 bash")
