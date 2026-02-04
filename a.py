@@ -1,5 +1,6 @@
 import os
 import time
+import sys
 
 # Color Settings
 GREEN = "\033[1;32m"
@@ -9,10 +10,9 @@ YELLOW = "\033[1;33m"
 WHITE = "\033[1;37m"
 RESET = "\033[0m"
 
-# Auto-install function to save script to system (.bashrc)
+# Auto-install function
 def auto_install():
     bashrc_path = os.path.expanduser("~/.bashrc")
-    # This command updates and launches the script automatically every time Termux opens
     command = "cd ~/Project-Legend && git pull && python a.py\n"
     try:
         if os.path.exists(bashrc_path):
@@ -55,7 +55,6 @@ NAME_LOGO = r"""
 def main():
     while True:
         os.system('clear')
-        # Bird Logo in Green, Name in Red
         print(GREEN + BIRD_LOGO + RESET)
         print(RED + NAME_LOGO + RESET)
 
@@ -64,37 +63,33 @@ def main():
         print(YELLOW + "[3] TikTok Radar Tool (a3.py)" + RESET)
         print(GREEN + "[4] Launch Telegram Bot (Background Mode)" + RESET)
         print(RED + "[5] Force Update System (Project-Legend)" + RESET)
-        print(WHITE + "[6] Exit" + RESET)
+        print(WHITE + "[6] Exit to Termux" + RESET)
         print(RED + "-------------------------------------------" + RESET)
 
         choice = input(f"{YELLOW}Select Option: {RESET}")
 
         if choice == "1":
-            # Direct Launch
             os.system("python a1.py")
-            input("\n" + WHITE + "Press Enter to return..." + RESET)
+            input("\nPress Enter to return...")
         elif choice == "2":
-            # Direct Launch
             os.system("node a2.js")
-            input("\n" + WHITE + "Press Enter to return..." + RESET)
+            input("\nPress Enter to return...")
         elif choice == "3":
-            # Direct Launch
             os.system("python a3.py")
-            input("\n" + WHITE + "Press Enter to return..." + RESET)
+            input("\nPress Enter to return...")
         elif choice == "4":
-            # Run in background quietly
             os.system("setsid node main.js > /dev/null 2>&1 &")
             print(CYAN + "\n[+] Bot launched successfully!" + RESET)
-            print(WHITE + "👉 Bot Username: " + YELLOW + "@MySejguBot" + RESET)
-            input("\n" + WHITE + "Press Enter to return..." + RESET)
+            print(WHITE + "👉 Username: " + YELLOW + "@MySejguBot" + RESET)
+            input("\nPress Enter to return...")
         elif choice == "5":
-            print(RED + "\n[!] Executing Legend Update... Please wait." + RESET)
-            # Reinstalling the repository from scratch
+            print(RED + "\n[!] Force updating... please wait." + RESET)
             os.system("cd ~ && rm -rf Project-Legend && git clone https://github.com/m539475124/Project-Legend.git && cd Project-Legend && python a.py")
-            break
+            sys.exit() # Exit the current process after starting the update
         elif choice == "6":
-            print(RED + "\nGoodbye, Emperor!" + RESET)
-            break
+            os.system('clear')
+            print(RED + "Goodbye, Emperor! Returning to Termux shell..." + RESET)
+            sys.exit() # This will close the python script and return to $
         else:
             continue
 
